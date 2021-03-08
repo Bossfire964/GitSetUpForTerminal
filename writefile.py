@@ -1,17 +1,25 @@
 import sys
+import os
 
 
-def writeNew():
-	writing = ["#!/bin/bash","function %s() {" % (sys.argv[1]), "\tpython3 /Users" + user + "/Documents/" + sys.argv[1] "/main.py $1 $2 $3 $4 $5 $6", "}"]
-
-	user = os.path.dirname(os.path.realpath(__file__)).split('/')[1]
-	with open("/Users/" + user + "/." + sys.argv[1]) as f:
-		for line in writing:
-			f.writeline(line + "\n")
 
 def writeToShell():
-	with open('~/.zshrc', 'a') as f:
-		f.writeline('source ~/.GitSetUpForTerminal/commands.sh')
+	user = os.path.dirname(os.path.realpath(__file__)).split('/')[2]
+	with open('/Users/' + user + "/.zshrc", 'a') as f:
+		f.writelines(['source ~/.GitSetUpForTerminal/commands.sh'])
+
+def writeNew():
+
+	user = os.path.dirname(os.path.realpath(__file__)).split('/')[2]
+	writing = ["#!/bin/bash","function %s() {" % (sys.argv[1]), "\tpython3 /Users/" + user + "/Documents/" + sys.argv[1] + "/main.py $1 $2 $3 $4 $5 $6", "}"]
+
+	with open("/Users/" + user + "/" + sys.argv[1] + ".sh", "w") as f:
+		for line in writing:
+			f.writelines([line + "\n"])
+	with open('/Users/' + user + "/.zshrc", 'a') as f:
+		f.writelines(['source ~/' + sys.argv[1] + '.sh'])
+
+
 
 if sys.argv[1] == "install":
 	writeToShell()
