@@ -6,7 +6,9 @@ import os
 def writeToShell():
 	user = os.path.dirname(os.path.realpath(__file__)).split('/')[2]
 	with open('/Users/' + user + "/.zshrc", 'a') as f:
+		f.writelines(['\n'])
 		f.writelines(['source ~/.GitSetUpForTerminal/commands.sh'])
+
 
 def writeNew():
 
@@ -17,6 +19,7 @@ def writeNew():
 		for line in writing:
 			f.writelines([line + "\n"])
 	with open('/Users/' + user + "/.zshrc", 'a') as f:
+		f.writelines(['\n'])
 		f.writelines(['source ~/' + sys.argv[1] + '.sh'])
 
 
